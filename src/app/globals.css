@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --background: #000403;
+  --foreground: #f4fff9;
+  --muted: #a5b3ad;
+  --emerald: #00f5a0;
+  --emerald-soft: #34d399;
+  --cyan-soft: #67e8f9;
+  --glass: rgba(255, 255, 255, 0.075);
+  --glass-strong: rgba(255, 255, 255, 0.12);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --font-display:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-emerald-glow: var(--emerald);
+  --font-sans: var(--font-display);
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #000;
+  text-rendering: geometricPrecision;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-display);
+  overflow-x: hidden;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: rgba(0, 245, 160, 0.28);
+  color: #f8fffc;
+}
+
+.glass-panel {
+  border: 1px solid var(--glass-border);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.045)),
+    rgba(5, 12, 10, 0.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 24px 80px rgba(0, 0, 0, 0.44),
+    0 0 70px rgba(16, 185, 129, 0.08);
+  backdrop-filter: blur(28px) saturate(1.25);
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-panel {
+    background: rgba(8, 15, 13, 0.94);
+  }
+}
+
+.emerald-text {
+  background: linear-gradient(90deg, #f7fffb 0%, #9fffd8 42%, #00f5a0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.surface-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 76%, transparent 100%);
+}
+
+.aurora-veil {
+  background:
+    linear-gradient(115deg, transparent 8%, rgba(0, 245, 160, 0.14) 26%, transparent 44%),
+    linear-gradient(65deg, transparent 18%, rgba(103, 232, 249, 0.09) 42%, transparent 66%),
+    linear-gradient(145deg, transparent 4%, rgba(255, 255, 255, 0.055) 34%, transparent 72%);
+  filter: blur(46px);
+  opacity: 0.74;
+  transform: translate3d(-8%, -8%, 0) rotate(8deg);
+  animation: aurora-drift 18s ease-in-out infinite alternate;
+}
+
+.light-sheet {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(0, 245, 160, 0.26), transparent 56%),
+    radial-gradient(ellipse at 18% 58%, rgba(103, 232, 249, 0.12), transparent 42%),
+    radial-gradient(ellipse at 82% 52%, rgba(255, 255, 255, 0.08), transparent 38%);
+  opacity: 0.82;
+  animation: light-breathe 12s ease-in-out infinite alternate;
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 9999px;
+  background: rgba(110, 255, 202, 0.76);
+  box-shadow: 0 0 18px rgba(0, 245, 160, 0.72);
+  animation: particle-float linear infinite;
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(-8%, -8%, 0) rotate(8deg) scale(1);
+  }
+
+  100% {
+    transform: translate3d(5%, 6%, 0) rotate(-6deg) scale(1.08);
+  }
+}
+
+@keyframes light-breathe {
+  0% {
+    opacity: 0.54;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.86;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0) scale(0.8);
+  }
+
+  18% {
+    opacity: 0.8;
+  }
+
+  82% {
+    opacity: 0.46;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -120px, 0) scale(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
